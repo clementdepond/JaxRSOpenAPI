@@ -11,6 +11,7 @@ import io.swagger.v3.oas.models.tags.Tag;
 
 @XmlRootElement(name = "Fiche")
 public class Fiche {
+    private int id;
     private String libelle;
     private String date_butoire;
     private Utilisateur user_affection;
@@ -19,6 +20,13 @@ public class Fiche {
     private String lieu;
     private String url;
     private String note_explicative;
+
+    public Fiche(int id, String libelle) {
+        this.libelle = libelle;
+        this.id = id;
+    }
+
+    public Fiche() {}
 
     @XmlElement(name = "libelle")
     public String getLibelle() {

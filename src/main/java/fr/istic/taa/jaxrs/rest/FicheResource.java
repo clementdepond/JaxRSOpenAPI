@@ -1,32 +1,41 @@
 package fr.istic.taa.jaxrs.rest;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.*;
 
 import fr.istic.taa.jaxrs.domain.Fiche;
-import io.swagger.v3.oas.annotations.Parameter;
+
+import javax.ws.rs.POST;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Path("/fiche")
 @Produces({"application/json", "application/xml"})
 public class FicheResource {
 
+    private List<Fiche> fiches = new ArrayList<Fiche>();
+
     @GET
-    @Path("/{ficheLibelle}")
-    public Fiche getFicheByLibelle(@PathParam("ficheLibelle") Long ficheLibelle)  {
-        // return fiche
-        return new Fiche();
+    @Path("/get/{id}/{libelle}")
+    public Fiche getUserById(@PathParam("id") int id, @PathParam("libelle") String libelle) {
+        if (fiches.isEmpty()) {
+            Fiche fiche1 = new Fiche(0,"Fiche1");
+            Fiche fiche2 = new Fiche(1,"Fiche2");
+            Fiche fiche3 = new Fiche(2,"Fiche3");
+            fiches.add(fiche1);
+            fiches.add(fiche2);
+            fiches.add(fiche3);
+        }
+        Fiche fiche = fiches.get(id);
+        return fiche;
     }
 
     @POST
+    @Path("/post/{libelle}")
     @Consumes("application/json")
-    public Response addFiche(
-            @Parameter(description = "Pet object that needs to be added to the store", required = true) Fiche fiche) {
-        // add fiche
-        return Response.ok().entity("SUCCESS").build();
+    public void createProductInJSON(@PathParam("libelle") String libelle) {
+        Fiche tag = new Fiche(fiches.size(), libelle);
+        fiches.add(tag);
+        String result = "Tag ajouté : Libelle : " + libelle;
     }
 }

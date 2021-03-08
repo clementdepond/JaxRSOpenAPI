@@ -11,8 +11,24 @@ import io.swagger.v3.oas.models.tags.Tag;
 
 @XmlRootElement(name = "Tag")
 public class Tags {
+    private int id;
     private String libelle;
     private List<Fiche> listFiche;
+
+    public Tags() {}
+    public Tags(int id, String libelle) {
+        this.libelle = libelle;
+        this.id = id;
+    }
+
+    @XmlElement(name = "id")
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @XmlElement(name = "libelle")
     public String getLibelle() {

@@ -16,6 +16,14 @@ public class Utilisateur {
     private String prenom;
     private List<Fiche> ficheList;
 
+    public Utilisateur(int id, String nom, String prenom) {
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+    }
+
+    public Utilisateur() {}
+
     @XmlElement(name = "id")
     public int getId() {
         return id;
